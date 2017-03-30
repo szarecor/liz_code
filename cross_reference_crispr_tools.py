@@ -37,11 +37,18 @@ files = ["targets1.txt", "targets2.txt", "targets3.txt", "targets4.txt"]
 
 
 
-# all_targets is a dictionary, we are going to use input file names as dictionary keys and lists of the file contents
+# all_guides is a dictionary, we are going to use input file names as dictionary keys and lists of the file contents
 # as dictionary values, we are using an OrderedDict so that the first input file will be the first column, and so on.
 # without the OrderedDict, we would fetch them from a regular dictionary in an order different from the order we
 # inserted them...
 all_guides = OrderedDict()
+
+# all_guides will have a form like this:
+# {
+#   'targets1.txt': ['GCAGTGGTGGCACTTGATGT', 'GCAGCAGTGGCACTTGATGT', 'GCAGCGGTAGCACTTGATGT'],
+#   'targets2.txt': ['GCAGTGGTGGCACTTGATGT', 'GCAGCAGTGGCACTTGATGT', 'GCAGCGGTAGCACTTGATGT', 'GNNGCGGTAGCACTTGATGT']
+# }
+
 
 # Here we start the table we will output:
 table = texttable.Texttable()
