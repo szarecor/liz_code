@@ -1,6 +1,10 @@
 from collections import OrderedDict
 import texttable
-#This program compares the tools in the order that they are given to them
+# This program compares the tools in the order that they are given to them
+# Liz:
+# There may well be better or more elegant approaches than what's below.
+# If something doesn't make sense to you, feel free to refactor it to something that
+# is clearer to you.
 
 # Helper method to make an ordered list of the target sequences
 def makeList(fileName):
@@ -35,15 +39,13 @@ while count < num:
 # during development, instead I'll just define the list of files here for dev purposes:
 files = ["targets1.txt", "targets2.txt", "targets3.txt", "targets4.txt"]
 
-
-
 # all_guides is a dictionary, we are going to use input file names as dictionary keys and lists of the file contents
 # as dictionary values, we are using an OrderedDict so that the first input file will be the first column, and so on.
 # without the OrderedDict, we would fetch them from a regular dictionary in an order different from the order we
 # inserted them...
 all_guides = OrderedDict()
 
-# all_guides will have a form like this:
+# the all_guides dict will have a form like this:
 # {
 #   'targets1.txt': ['GCAGTGGTGGCACTTGATGT', 'GCAGCAGTGGCACTTGATGT', 'GCAGCGGTAGCACTTGATGT'],
 #   'targets2.txt': ['GCAGTGGTGGCACTTGATGT', 'GCAGCAGTGGCACTTGATGT', 'GCAGCGGTAGCACTTGATGT', 'GNNGCGGTAGCACTTGATGT']
@@ -52,9 +54,26 @@ all_guides = OrderedDict()
 
 # Here we start the table we will output:
 table = texttable.Texttable()
+
+# Below we use python "list comprehensions" to create lists, that might confusing (it was for me when I was first learning):
 # Set the widths of the table columns:
 table.set_cols_width([20 for i in range(0, len(files) + 1)])
-table.header([""] + files)
+
+# The above list comprehension could be written in a more straight-forward way like so:
+"""
+col_widths = []
+col_count = len(files) + 1
+
+for i in range(0, col_count):
+    col_widths.append(20)
+
+table.set_cols_width(col_widths)
+"""
+
+# Set the cell content alignment to "c" for center for the table cells:
+table.set_cols_align(["c" for i in range(0, len(files) + 1)])
+
+table.header(["guide"] + files)
 
 # This will be a set of unique CRISPR guides from all of the input files:
 guide_set = set()
