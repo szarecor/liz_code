@@ -88,7 +88,7 @@ for file_name in files:
         guide_set.add(guide_seq)
 
 
-# Now, we loop through the set of unique guides
+# Now, we loop through the set of unique guides to generate the actual table rows to display:
 for guide_seq in guide_set:
 
     matches = []
